@@ -52,7 +52,7 @@ public class AuthController {
     public ResponseEntity<?> authenticateGitHubUser(@RequestBody AuthRequest authRequest) {
         log.info("Received GitHub auth request code: {}", authRequest.getCode());
 
-        String githubToken = gitHubService.exchangeCodeForToken(authRequest.getCode());
+        String githubToken = gitHubService.exchangeCodeForToken(authRequest.getCode(), authRequest.getRedirectUri());
         if (githubToken == null || githubToken.isBlank()) {
             log.error("GitHub token exchange returned null/blank for code: {}", authRequest.getCode());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

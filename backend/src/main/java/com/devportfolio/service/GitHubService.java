@@ -30,13 +30,16 @@ public class GitHubService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public String exchangeCodeForToken(String code) {
+    public String exchangeCodeForToken(String code, String redirectUri) {
         String url = "https://github.com/login/oauth/access_token";
 
         Map<String, String> requestPayload = new HashMap<>();
         requestPayload.put("client_id", clientId);
         requestPayload.put("client_secret", clientSecret);
         requestPayload.put("code", code);
+        if (redirectUri != null && !redirectUri.isBlank()) {
+            requestPayload.put("redirect_uri", redirectUri);
+        }
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

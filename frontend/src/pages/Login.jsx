@@ -27,7 +27,7 @@ export default function Login() {
     setLoading(true);
     setError(null);
     try {
-      const response = await authApi.loginWithGitHub(code);
+      const response = await authApi.loginWithGitHub(code, REDIRECT_URI);
       const { token, username, name, avatarUrl } = response.data;
 
       localStorage.setItem('devportfolio_token', token);

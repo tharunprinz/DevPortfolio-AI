@@ -39,7 +39,7 @@ apiClient.interceptors.response.use(
 );
 
 export const authApi = {
-  loginWithGitHub: (code) => apiClient.post('/auth/github', { code }),
+  loginWithGitHub: (code, redirectUri) => apiClient.post('/auth/github', { code, redirectUri }),
   logout: () => {
     localStorage.removeItem('devportfolio_token');
     localStorage.removeItem('devportfolio_user');
