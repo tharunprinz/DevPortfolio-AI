@@ -31,6 +31,11 @@ public class GitHubService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public String exchangeCodeForToken(String code, String redirectUri) {
+        Map<String, String> result = exchangeCodeForTokenDetailed(code, redirectUri);
+        return result.get("access_token");
+    }
+
+    public Map<String, String> exchangeCodeForTokenDetailed(String code, String redirectUri) {
         String url = "https://github.com/login/oauth/access_token";
 
         Map<String, String> requestPayload = new HashMap<>();
@@ -57,17 +62,19 @@ public class GitHubService {
 
             Map<String, Object> body = response.getBody();
             log.info("GitHub token exchange response: {}", body);
-            if (body != null && body.containsKey("access_token")) {
-                return (String) body.get("access_token");
+
+            Map<String, String> result = new HashMap<>();
+            if (body != null) {
+                body.forEach((k, v) -> result.put(k, v != null ? v.toString() : null));
             }
-            if (body != null && body.containsKey("error")) {
-                log.error("GitHub OAuth error: {} - {}", body.get("error"), body.get("error_description"));
-            }
+            return result;
         } catch (Exception e) {
             log.error("Failed to exchange OAuth code for token: {}", e.getMessage());
+            Map<String, String> err = new HashMap<>();
+            err.put("error", "network_error");
+            err.put("error_description", e.getMessage());
+            return err;
         }
-
-        return null;
     }
 
     public Map<String, Object> getUserProfile(String accessToken) {

@@ -35,8 +35,9 @@ export default function Login() {
 
       navigate('/dashboard');
     } catch (err) {
-      console.error(err);
-      setError('GitHub authentication exchange failed. Check backend credentials.');
+      console.error('Auth error:', err);
+      const backendMsg = err.response?.data;
+      setError(typeof backendMsg === 'string' ? backendMsg : 'GitHub authentication exchange failed. Check backend credentials.');
     } finally {
       setLoading(false);
     }

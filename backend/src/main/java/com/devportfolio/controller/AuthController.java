@@ -35,7 +35,10 @@ public class AuthController {
     @Value("${devportfolio.github.clientId}")
     private String githubClientId;
 
-    // Public health check — confirms which client ID is loaded
+    @Value("${devportfolio.github.clientSecret}")
+    private String githubClientSecret;
+
+    // Public health check — confirms env vars are loaded
     @GetMapping("/health")
     public ResponseEntity<?> health() {
         String maskedClientId = githubClientId.length() > 6
@@ -44,7 +47,8 @@ public class AuthController {
         return ResponseEntity.ok(Map.of(
                 "status", "UP",
                 "githubClientId", maskedClientId,
-                "clientIdLength", githubClientId.length()
+                "clientIdLength", githubClientId.length(),
+                "clientSecretLength", githubClientSecret.length()
         ));
     }
 
@@ -52,11 +56,15 @@ public class AuthController {
     public ResponseEntity<?> authenticateGitHubUser(@RequestBody AuthRequest authRequest) {
         log.info("Received GitHub auth request code: {}", authRequest.getCode());
 
-        String githubToken = gitHubService.exchangeCodeForToken(authRequest.getCode(), authRequest.getRedirectUri());
+        Map<String, String> exchangeResult = gitHubService.exchangeCodeForTokenDetailed(
+                authRequest.getCode(), authRequest.getRedirectUri());
+        String githubToken = exchangeResult.get("access_token");
         if (githubToken == null || githubToken.isBlank()) {
-            log.error("GitHub token exchange returned null/blank for code: {}", authRequest.getCode());
+            String ghError = exchangeResult.getOrDefault("error", "unknown");
+            String ghDesc  = exchangeResult.getOrDefault("error_description", "");
+            log.error("GitHub token exchange failed: {} - {}", ghError, ghDesc);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Failed to exchange code for access token with GitHub");
+                    .body("GitHub error: " + ghError + " — " + ghDesc);
         }
 
         try {
