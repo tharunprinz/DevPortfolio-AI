@@ -63,7 +63,8 @@ public class AuthController {
             String ghError = exchangeResult.getOrDefault("error", "unknown");
             String ghDesc  = exchangeResult.getOrDefault("error_description", "");
             log.error("GitHub token exchange failed: {} - {}", ghError, ghDesc);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+            // Use 400 not 401 — 401 is intercepted by frontend as 'needs auth'
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("GitHub error: " + ghError + " — " + ghDesc);
         }
 

@@ -36,16 +36,19 @@ export default function Login() {
       navigate('/dashboard');
     } catch (err) {
       console.error('Auth error:', err);
-      const backendMsg = err.response?.data;
-      setError(typeof backendMsg === 'string' ? backendMsg : 'GitHub authentication exchange failed. Check backend credentials.');
+      const data = err.response?.data;
+      const msg = typeof data === 'string'
+        ? data
+        : (data?.message || data?.error || 'GitHub authentication exchange failed. Check backend credentials.');
+      setError(msg);
     } finally {
       setLoading(false);
     }
   };
 
   const triggerGitHubLogin = () => {
-    // Standard OAuth redirect
-    const oauthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user,repo`;
+    // Use registered callback URL — no explicit redirect_uri to avoid mismatch
+    const oauthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&scope=user,repo`;
     window.location.href = oauthUrl;
   };
 
