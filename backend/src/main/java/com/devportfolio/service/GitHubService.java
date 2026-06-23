@@ -53,8 +53,12 @@ public class GitHubService {
             );
 
             Map<String, Object> body = response.getBody();
+            log.info("GitHub token exchange response: {}", body);
             if (body != null && body.containsKey("access_token")) {
                 return (String) body.get("access_token");
+            }
+            if (body != null && body.containsKey("error")) {
+                log.error("GitHub OAuth error: {} - {}", body.get("error"), body.get("error_description"));
             }
         } catch (Exception e) {
             log.error("Failed to exchange OAuth code for token: {}", e.getMessage());
