@@ -146,3 +146,15 @@ select:focus {
   transition: box-shadow 0.2s ease, opacity 0.2s ease;
 }
 .btn-glow:hover { box-shadow: 0 6px 32px -4px rgba(249, 115, 22, 0.55); }
+
+/* ── Mobile safe-area padding (iPhone notch/home indicator) ── */
+.safe-area-pb {
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
+}
+
+/* ── Ensure tap targets are not too small on mobile ── */
+@media (max-width: 1023px) {
+  button, a[role="button"] {
+    min-height: 40px;
+  }
+}

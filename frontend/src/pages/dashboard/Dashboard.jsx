@@ -7,7 +7,9 @@ import {
   Sparkle, 
   ExternalLink,
   ShieldCheck,
-  TrendingUp
+  TrendingUp,
+  ChevronsRight,
+  ChevronsLeft
 } from 'lucide-react';
 import { GithubIcon } from '../../components/ui/BrandIcons';
 import { githubApi, authApi, portfoliosApi, resumesApi } from '../../services/api';
@@ -20,6 +22,8 @@ export default function Dashboard() {
   const [resumes, setResumes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [syncing, setSyncing] = useState(false);
+  // Mobile: hide the "Published Portfolios" tile by default for a cleaner layout
+  const [showRightPanel, setShowRightPanel] = useState(false);
 
   useEffect(() => {
     fetchDashboardStats();
@@ -63,12 +67,12 @@ export default function Dashboard() {
     : 0;
 
   return (
-    <div className="space-y-8 select-none">
+    <div className="space-y-6 md:space-y-8 select-none">
       {/* Welcome Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">Developer Dashboard</h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">Developer Dashboard</h1>
+          <p className="text-gray-400 text-xs md:text-sm mt-1">
             Welcome back, <span className="text-white font-semibold">{user?.name}</span>. Manage your portfolios and analyze synced repositories.
           </p>
         </div>
@@ -76,7 +80,7 @@ export default function Dashboard() {
         <button
           onClick={handleSync}
           disabled={syncing}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 text-white font-semibold text-xs hover:bg-orange-500 disabled:opacity-50 transition-colors shadow-lg shadow-orange-500/15 cursor-pointer border border-orange-500/20"
+          className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 text-white font-semibold text-xs hover:bg-orange-500 disabled:opacity-50 transition-colors shadow-lg shadow-orange-500/15 cursor-pointer border border-orange-500/20 w-full sm:w-auto"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${syncing ? 'animate-spin' : ''}`} />
           <span>{syncing ? 'Syncing GitHub...' : 'Sync GitHub Repos'}</span>
@@ -84,58 +88,74 @@ export default function Dashboard() {
       </div>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="glass-panel p-6 bg-white/5 border border-white/10 text-left">
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-gray-400 text-xs font-semibold">Synced Repos</span>
-            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-gray-300">
-              <GithubIcon className="w-4 h-4" />
+      <div className="grid grid-cols-2 gap-3 md:gap-6">
+        <div className="glass-panel p-4 sm:p-6 bg-white/5 border border-white/10 text-left">
+          <div className="flex justify-between items-center mb-2 sm:mb-3">
+            <span className="text-gray-400 text-[10px] sm:text-xs font-semibold leading-tight">Synced Repos</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/5 flex items-center justify-center text-gray-300 shrink-0">
+              <GithubIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <span className="text-3xl font-bold text-white block">{totalRepos}</span>
-          <span className="text-[10px] text-gray-500 mt-1 block">{analyzedRepos} Analyzed by AI</span>
+          <span className="text-2xl sm:text-3xl font-bold text-white block">{totalRepos}</span>
+          <span className="text-[9px] sm:text-[10px] text-gray-500 mt-1 block">{analyzedRepos} by AI</span>
         </div>
 
-        <div className="glass-panel p-6 bg-white/5 border border-white/10 text-left">
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-gray-400 text-xs font-semibold">Active Portfolios</span>
-            <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center text-amber-400">
-              <Sparkle className="w-4 h-4" />
+        <div className="glass-panel p-4 sm:p-6 bg-white/5 border border-white/10 text-left">
+          <div className="flex justify-between items-center mb-2 sm:mb-3">
+            <span className="text-gray-400 text-[10px] sm:text-xs font-semibold leading-tight">Portfolios</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-orange-500/10 flex items-center justify-center text-amber-400 shrink-0">
+              <Sparkle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <span className="text-3xl font-bold text-white block">{portfolios.length}</span>
-          <span className="text-[10px] text-amber-400 mt-1 block">Live previews enabled</span>
+          <span className="text-2xl sm:text-3xl font-bold text-white block">{portfolios.length}</span>
+          <span className="text-[9px] sm:text-[10px] text-amber-400 mt-1 block">Live previews</span>
         </div>
 
-        <div className="glass-panel p-6 bg-white/5 border border-white/10 text-left">
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-gray-400 text-xs font-semibold">Saved Resumes</span>
-            <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400">
-              <FileCheck className="w-4 h-4" />
+        <div className="glass-panel p-4 sm:p-6 bg-white/5 border border-white/10 text-left">
+          <div className="flex justify-between items-center mb-2 sm:mb-3">
+            <span className="text-gray-400 text-[10px] sm:text-xs font-semibold leading-tight">Saved Resumes</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 shrink-0">
+              <FileCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <span className="text-3xl font-bold text-white block">{resumes.length}</span>
-          <span className="text-[10px] text-amber-400 mt-1 block">ATS Optimized CV templates</span>
+          <span className="text-2xl sm:text-3xl font-bold text-white block">{resumes.length}</span>
+          <span className="text-[9px] sm:text-[10px] text-amber-400 mt-1 block">ATS Optimized</span>
         </div>
 
-        <div className="glass-panel p-6 bg-white/5 border border-white/10 text-left">
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-gray-400 text-xs font-semibold">Profile Health</span>
-            <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400">
-              <TrendingUp className="w-4 h-4" />
+        <div className="glass-panel p-4 sm:p-6 bg-white/5 border border-white/10 text-left">
+          <div className="flex justify-between items-center mb-2 sm:mb-3">
+            <span className="text-gray-400 text-[10px] sm:text-xs font-semibold leading-tight">Health Score</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 shrink-0">
+              <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <span className="text-3xl font-bold text-white block">{avgHealthScore}%</span>
-          <span className="text-[10px] text-amber-400 mt-1 block">Based on repo descriptions</span>
+          <span className="text-2xl sm:text-3xl font-bold text-white block">{avgHealthScore}%</span>
+          <span className="text-[9px] sm:text-[10px] text-amber-400 mt-1 block">Repo quality</span>
         </div>
       </div>
 
       {/* Main Grid */}
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid gap-6 md:gap-8 lg:grid-cols-3">
         {/* Left Column: Quick steps */}
         <div className="lg:col-span-2 space-y-6">
           <div className="glass-panel p-6 text-left space-y-4 bg-white/5">
-            <h2 className="font-bold text-lg text-white">Getting Started Guide</h2>
+            {/* Header row with mobile >> toggle */}
+            <div className="flex items-center justify-between">
+              <h2 className="font-bold text-lg text-white">Getting Started Guide</h2>
+              {/* Only visible on mobile — toggles the Published Portfolios tile */}
+              <button
+                id="toggle-portfolios-panel"
+                onClick={() => setShowRightPanel(prev => !prev)}
+                title={showRightPanel ? 'Hide portfolios panel' : 'Show portfolios panel'}
+                className="lg:hidden flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-amber-400 hover:border-amber-400/30 active:bg-white/10 transition-all text-xs font-semibold"
+              >
+                {showRightPanel ? (
+                  <><ChevronsLeft className="w-3.5 h-3.5" /><span>Hide</span></>
+                ) : (
+                  <><ChevronsRight className="w-3.5 h-3.5" /><span>Portfolios</span></>
+                )}
+              </button>
+            </div>
             
             <div className="space-y-4">
               <div className="flex gap-4 items-start">
@@ -165,10 +185,20 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Right Column: Active published paths */}
-        <div className="space-y-6">
+        {/* Right Column: Published Portfolios — always visible on desktop, toggled on mobile */}
+        <div className={`space-y-6 lg:block ${showRightPanel ? 'block' : 'hidden'}`}>
           <div className="glass-panel p-6 text-left space-y-4 bg-white/5">
-            <h2 className="font-bold text-lg text-white">Published Portfolios</h2>
+            <div className="flex items-center justify-between">
+              <h2 className="font-bold text-lg text-white">Published Portfolios</h2>
+              {/* Mobile close button inside the panel */}
+              <button
+                onClick={() => setShowRightPanel(false)}
+                className="lg:hidden p-1.5 rounded-lg bg-white/5 text-gray-400 hover:text-white transition-colors"
+                title="Hide panel"
+              >
+                <ChevronsLeft className="w-4 h-4" />
+              </button>
+            </div>
 
             {portfolios.length === 0 ? (
               <p className="text-gray-500 text-xs py-4 text-center">No portfolios generated yet.</p>

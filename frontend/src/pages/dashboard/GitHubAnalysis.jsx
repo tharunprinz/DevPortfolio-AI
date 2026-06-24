@@ -126,16 +126,16 @@ export default function GitHubAnalysis() {
   return (
     <div className="space-y-6 text-left relative min-h-screen">
       {/* Title */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 select-none">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 select-none">
         <div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">GitHub Repository Sync</h1>
-          <p className="text-gray-400 text-sm mt-1">Deep analyze repositories using AI to automatically compile descriptions and technical summaries.</p>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">GitHub Repository Sync</h1>
+          <p className="text-gray-400 text-xs md:text-sm mt-1">Deep analyze repositories using AI to automatically compile descriptions and technical summaries.</p>
         </div>
 
         <button
           onClick={handleSync}
           disabled={syncing}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 text-white font-semibold text-xs hover:bg-orange-500 disabled:opacity-50 transition-colors shadow-lg shadow-orange-500/15 cursor-pointer border border-orange-500/20"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 text-white font-semibold text-xs hover:bg-orange-500 disabled:opacity-50 transition-colors shadow-lg shadow-orange-500/15 cursor-pointer border border-orange-500/20 self-start"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${syncing ? 'animate-spin' : ''}`} />
           <span>{syncing ? 'Syncing...' : 'Sync Repository List'}</span>
@@ -143,7 +143,7 @@ export default function GitHubAnalysis() {
       </div>
 
       {/* Search Input */}
-      <div className="glass-panel p-4 flex items-center gap-3 bg-white/5 border border-white/10 max-w-md">
+      <div className="glass-panel p-4 flex items-center gap-3 bg-white/5 border border-white/10 w-full sm:max-w-md">
         <Search className="w-4 h-4 text-gray-500" />
         <input 
           type="text" 
@@ -162,7 +162,7 @@ export default function GitHubAnalysis() {
           No repositories synced. Click "Sync Repository List" above to get started.
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
           {filteredRepos.map((repo) => {
             const hasAnalysis = !!repo.analysisResult;
             const isAnalyzing = analyzingId === repo.id;
@@ -243,7 +243,7 @@ export default function GitHubAnalysis() {
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setDrawerOpen(false)} />
           
           {/* Drawer content body */}
-          <div className="relative w-full max-w-xl h-full bg-[#0E0E0E] border-l border-white/10 p-6 flex flex-col justify-between overflow-y-auto">
+          <div className="relative w-full max-w-xl sm:max-w-xl h-full bg-[#0E0E0E] border-l border-white/10 p-4 md:p-6 flex flex-col justify-between overflow-y-auto">
             
             {/* Header info */}
             <div>

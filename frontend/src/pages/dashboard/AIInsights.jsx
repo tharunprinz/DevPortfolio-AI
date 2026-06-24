@@ -160,36 +160,36 @@ export default function AIInsights() {
   const skillGap = parseJsonMap(insights.skillGap);
 
   return (
-    <div className="space-y-8 text-left relative min-h-screen">
+    <div className="space-y-6 md:space-y-8 text-left relative min-h-screen">
       
       {/* Title */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 select-none">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 select-none">
         <div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">AI Career Insights</h1>
-          <p className="text-gray-400 text-sm mt-1">Optimize your profile matching ratios and address skill deficits.</p>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">AI Career Insights</h1>
+          <p className="text-gray-400 text-xs md:text-sm mt-1">Optimize your profile matching ratios and address skill deficits.</p>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex gap-2 sm:gap-3 flex-wrap">
           <button
             onClick={triggerRoast}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-orange-500 text-white font-semibold text-xs hover:opacity-90 transition-opacity cursor-pointer border border-red-500/20 shadow-lg shadow-red-600/10"
+            className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-orange-500 text-white font-semibold text-xs hover:opacity-90 transition-opacity cursor-pointer border border-red-500/20 shadow-lg shadow-red-600/10"
           >
             <Smile className="w-3.5 h-3.5" />
-            <span>GitHub Roast Mode</span>
+            <span>GitHub Roast</span>
           </button>
 
           <button
             onClick={handleRegenerate}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold text-xs hover:from-orange-400 hover:to-amber-400 transition-all shadow-lg shadow-orange-500/15 cursor-pointer border border-orange-500/20"
+            className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold text-xs hover:from-orange-400 hover:to-amber-400 transition-all shadow-lg shadow-orange-500/15 cursor-pointer border border-orange-500/20"
           >
             <Wand2 className="w-3.5 h-3.5" />
-            <span>Regenerate Insights</span>
+            <span>Regenerate</span>
           </button>
         </div>
       </div>
 
       {/* Strengths & Weaknesses */}
-      <div className="grid md:grid-cols-2 gap-8 select-none">
+      <div className="grid sm:grid-cols-2 gap-4 md:gap-8 select-none">
         <div className="glass-panel p-6 bg-white/5 border border-white/10 space-y-4">
           <h2 className="font-bold text-sm text-white flex items-center gap-2">
             <TrendingUp className="w-4 h-4 text-amber-400" />
@@ -223,7 +223,7 @@ export default function AIInsights() {
       <div className="glass-panel p-6 bg-white/5 border border-white/10 space-y-6 select-none">
         <h2 className="font-bold text-sm text-white">Target Role Match & Skill Gap</h2>
         
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {Object.entries(skillGap).map(([roleName, data]) => (
             <div key={roleName} className="p-5 rounded-2xl border border-white/5 bg-black/20 flex flex-col justify-between">
               <div>

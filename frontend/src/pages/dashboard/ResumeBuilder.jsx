@@ -223,16 +223,16 @@ export default function ResumeBuilder() {
   return (
     <div className="space-y-6 text-left relative min-h-screen">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 select-none">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 select-none">
         <div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">Resume Builder</h1>
-          <p className="text-gray-400 text-sm mt-1">Compile your synced project stats and work history into an ATS-friendly format.</p>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">Resume Builder</h1>
+          <p className="text-gray-400 text-xs md:text-sm mt-1">Compile your synced project stats and work history into an ATS-friendly format.</p>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex gap-2 sm:gap-3 flex-wrap">
           <button
             onClick={handleExportPdf}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 text-white font-semibold text-xs hover:from-orange-400 hover:to-amber-300 transition-all cursor-pointer border border-orange-500/20 shadow-lg shadow-orange-500/20 btn-glow"
+            className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 text-white font-semibold text-xs hover:from-orange-400 hover:to-amber-300 transition-all cursor-pointer border border-orange-500/20 shadow-lg shadow-orange-500/20 btn-glow"
           >
             <Printer className="w-3.5 h-3.5" />
             <span>Export PDF</span>
@@ -241,7 +241,7 @@ export default function ResumeBuilder() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/8 text-white font-semibold text-xs hover:bg-white/15 disabled:opacity-50 transition-colors cursor-pointer border border-white/10"
+            className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-white/8 text-white font-semibold text-xs hover:bg-white/15 disabled:opacity-50 transition-colors cursor-pointer border border-white/10"
           >
             <Save className="w-3.5 h-3.5" />
             <span>{saving ? 'Saving...' : 'Save CV'}</span>
@@ -250,10 +250,10 @@ export default function ResumeBuilder() {
       </div>
 
       {/* Editor Split Layout */}
-      <div className="grid lg:grid-cols-5 gap-8">
+      <div className="grid gap-6 lg:grid-cols-5 lg:gap-8">
         
         {/* Left column: Form Fields */}
-        <div className="lg:col-span-2 space-y-6 max-h-[calc(100vh-12rem)] overflow-y-auto pr-2">
+        <div className="lg:col-span-2 space-y-6 lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:pr-2">
           
           {/* AI Polisher Controls */}
           <div className="glass-panel p-6 bg-orange-500/5 border border-orange-500/15 space-y-4">

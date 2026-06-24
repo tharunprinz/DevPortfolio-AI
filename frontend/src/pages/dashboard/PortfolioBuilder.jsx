@@ -130,18 +130,18 @@ export default function PortfolioBuilder() {
   return (
     <div className="space-y-6 text-left relative min-h-screen">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 select-none">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 select-none">
         <div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">Portfolio Canvas</h1>
-          <p className="text-gray-400 text-sm mt-1">Design your public profile website using premium aesthetic presets.</p>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">Portfolio Canvas</h1>
+          <p className="text-gray-400 text-xs md:text-sm mt-1">Design your public profile website using premium aesthetic presets.</p>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex gap-2 sm:gap-3 flex-wrap">
           <a
             href={`/p/${activePortfolio.publishedUrl}`}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 text-gray-300 font-semibold text-xs hover:bg-white/10 transition-colors cursor-pointer border border-white/5"
+            className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-white/5 text-gray-300 font-semibold text-xs hover:bg-white/10 transition-colors cursor-pointer border border-white/5"
           >
             <Eye className="w-3.5 h-3.5" />
             <span>Live Site</span>
@@ -150,7 +150,7 @@ export default function PortfolioBuilder() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 text-white font-semibold text-xs hover:bg-orange-500 disabled:opacity-50 transition-colors shadow-lg shadow-orange-500/15 cursor-pointer border border-orange-500/20"
+            className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 text-white font-semibold text-xs hover:bg-orange-500 disabled:opacity-50 transition-colors shadow-lg shadow-orange-500/15 cursor-pointer border border-orange-500/20"
           >
             <Save className="w-3.5 h-3.5" />
             <span>{saving ? 'Saving...' : 'Save Portfolio'}</span>
@@ -159,10 +159,10 @@ export default function PortfolioBuilder() {
       </div>
 
       {/* Builder Workspace Split */}
-      <div className="grid lg:grid-cols-5 gap-8">
+      <div className="grid gap-6 lg:grid-cols-5 lg:gap-8">
         
         {/* Left Side: Configurations */}
-        <div className="lg:col-span-2 space-y-6 max-h-[calc(100vh-12rem)] overflow-y-auto pr-2">
+        <div className="lg:col-span-2 space-y-6 lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:pr-2">
           
           {/* Template Selectors */}
           <div className="glass-panel p-6 bg-white/5 border border-white/10 space-y-4">

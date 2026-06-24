@@ -40,7 +40,7 @@ export default function LandingPage() {
       <Navbar />
 
       {/* Hero */}
-      <section className="pt-36 pb-20 px-6 max-w-5xl mx-auto text-center flex flex-col items-center">
+      <section className="pt-24 md:pt-36 pb-16 md:pb-20 px-4 md:px-6 max-w-5xl mx-auto text-center flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -55,7 +55,7 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl md:text-6xl font-bold leading-tight tracking-tight max-w-4xl text-gradient mb-6"
+          className="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight tracking-tight max-w-4xl text-gradient mb-6"
         >
           Your GitHub Already Knows Your Story.<br />
           <span className="text-gradient-orange-yellow">Let AI Build Your Portfolio.</span>
@@ -65,7 +65,7 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-gray-400 text-base md:text-lg max-w-2xl mb-10 leading-relaxed"
+          className="text-gray-400 text-sm md:text-lg max-w-2xl mb-8 md:mb-10 leading-relaxed px-2"
         >
           Connect GitHub to automatically compile your repositories, extract programming skills, build ATS-friendly resumes, and deploy stunning developer sites in minutes.
         </motion.p>
@@ -74,18 +74,18 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full sm:w-auto"
         >
           <Link
             to="/login"
-            className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-400 text-white font-semibold hover:from-orange-400 hover:to-amber-300 transition-all duration-300 shadow-xl shadow-orange-500/25 text-sm group btn-glow"
+            className="flex items-center justify-center gap-2 px-6 sm:px-8 py-4 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-400 text-white font-semibold hover:from-orange-400 hover:to-amber-300 transition-all duration-300 shadow-xl shadow-orange-500/25 text-sm group btn-glow"
           >
             <span>Generate Portfolio Free</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
           <button
             onClick={() => document.getElementById('features').scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-orange-500/8 hover:border-orange-500/20 transition-all text-sm cursor-pointer"
+            className="px-6 sm:px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-orange-500/8 hover:border-orange-500/20 transition-all text-sm cursor-pointer"
           >
             Explore Features
           </button>
@@ -96,7 +96,7 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-16 w-full max-w-3xl"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mt-12 md:mt-16 w-full max-w-3xl"
         >
           {stats.map((s, i) => (
             <div key={i} className="text-center">
@@ -108,13 +108,13 @@ export default function LandingPage() {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-20 px-6 max-w-5xl mx-auto border-t border-white/5">
-        <div className="text-center mb-16">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4">Engineered for Technical Portfolios</h2>
+      <section id="features" className="py-16 md:py-20 px-4 md:px-6 max-w-5xl mx-auto border-t border-white/5">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-xl md:text-4xl font-bold mb-4">Engineered for Technical Portfolios</h2>
           <p className="text-gray-400 text-sm max-w-lg mx-auto">Stop writing bio descriptions from scratch. Let AI parse your codebase parameters directly.</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {features.map((feat, index) => {
             const Icon = feat.icon;
             return (

@@ -26,8 +26,8 @@ export default function Settings() {
       
       {/* Title */}
       <div>
-        <h1 className="text-3xl font-extrabold text-white tracking-tight">System Settings</h1>
-        <p className="text-gray-400 text-sm mt-1">Configure your integrations keys and custom profile routing links.</p>
+        <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">System Settings</h1>
+        <p className="text-gray-400 text-xs md:text-sm mt-1">Configure your integrations keys and custom profile routing links.</p>
       </div>
 
       <div className="max-w-2xl space-y-6">

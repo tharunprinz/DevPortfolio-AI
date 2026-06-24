@@ -17,22 +17,23 @@ export default function DashboardLayout() {
   }
 
   return (
-    <div className="flex min-h-screen bg-[#0A0A0A] bg-grid-pattern relative overflow-x-hidden">
+    <div className="flex min-h-screen bg-[#0A0A0A] bg-grid-pattern relative overflow-hidden">
       {/* Background wander glow effects */}
       <div className="glow-orb w-[500px] h-[500px] -top-40 -left-40 bg-orange-500/15" />
       <div className="glow-orb w-[400px] h-[400px] bottom-10 right-10 bg-amber-500/10" style={{ animationDelay: '-5s' }} />
 
-      {/* Navigation sidebar */}
+      {/* Navigation sidebar — desktop only (mobile renders its own bars inside Sidebar) */}
       <Sidebar />
 
-      {/* Workspace panel */}
-      <div className="flex-1 flex flex-col max-h-screen overflow-y-auto">
-        <main className="flex-1 p-8">
+      {/* Workspace panel — full width on mobile, flex-1 on desktop */}
+      {/* pt-16 on mobile to clear the top bar; pb-24 to clear the bottom nav; lg resets to default */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto pt-16 pb-24 lg:pt-0 lg:pb-0" style={{ maxHeight: '100vh' }}>
+        <main className="flex-1 p-4 md:p-6 lg:p-8 min-w-0">
           <Outlet />
         </main>
 
-        {/* Footer */}
-        <footer className="py-4 px-8 border-t border-white/5 text-center">
+        {/* Footer — only visible on desktop */}
+        <footer className="hidden lg:block py-4 px-8 border-t border-white/5 text-center">
           <a
             href="https://github.com/tharunprinz"
             target="_blank"
